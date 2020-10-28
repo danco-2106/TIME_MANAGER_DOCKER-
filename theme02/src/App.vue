@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <!--      <a v-on:click="clickHome" class="navbar-brand">Time Manager</a>-->
       <router-link to="/" class="navbar-brand">Time Manager</router-link>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04"
               aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,20 +13,24 @@
             <router-link to="/" class="nav-link">Home <span class="sr-only">(current)</span></router-link>
           </li>
           <li class="nav-item active">
+            <router-link to="/dashboard" v-if="userLoggedIn" class="nav-link">Dashboard </router-link>
+          </li>
+          <li class="nav-item active">
             <router-link to="/clocking" v-if="userLoggedIn" class="nav-link">Clocking <span
                 class="sr-only">(current)</span></router-link>
           </li>
-          <li class="nav-item dropdown">
+
+          <li class="nav-item active dropdown">
             <a class="nav-link dropdown-toggle" id="dropdown04" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">{{ user.username }}</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown04">
+            <div class="dropdown-menu active" aria-labelledby="dropdown04">
               <router-link to="/login" v-if="userLoggedOut" class="dropdown-item">Log in</router-link>
               <router-link to="/signup" v-if="userLoggedOut" class="dropdown-item">Sign up</router-link>
               <router-link to="/edit" v-if="userLoggedIn" class="dropdown-item">Edit</router-link>
               <a v-if="userLoggedIn" v-on:click="userLogout" class="dropdown-item">Log out</a>
             </div>
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <router-link to="/workingtimes" v-if="userLoggedIn" class="nav-link">Working Times</router-link>
           </li>
         </ul>

@@ -1,31 +1,38 @@
 <template>
   <div>
-    <donut-chart
-        id="donut"
-        :data="donutData"
-        colors='[ "#FF6384", "#36A2EB", "#FFCE56" ]'
-        resize="true">
-    </donut-chart>
-    <button v-on:click="getClockingData" type="button">TEST</button>
+    <h1>Clockings</h1>
+<!--    <button v-on:click="getClockingData" type="button">Refresh data</button>-->
+    <grid
+        :auto-width="autoWidth"
+        :cols="cols"
+        :language="language"
+        :pagination="pagination"
+        :rows="rows"
+        :search="search"
+        :sort="sort"
+        :width="width"
+    ></grid>
   </div>
 </template>
 
 <script>
-import {DonutChart} from 'vue-morris'
+import Grid from 'gridjs-vue'
 
 export default {
   name: "Clocking",
   props: {
     user: Object
   },
+  created() {
+    this.getClockingData();
+  },
   methods: {
     getClockingData() {
-
+      //returns all the clocks for the user currently logged in
       var requestOptions = {
         method: 'GET',
         redirect: 'follow'
       };
-
       fetch("http://localhost:4000/api/clocks/" + this.user.id, requestOptions)
           .then(function (response) {
             if (!response.ok) {
@@ -35,40 +42,49 @@ export default {
           })
           .then(response => response.text())
           .then(result => {
-            console.log(result);
             result = JSON.parse(result);
-            console.log(result);
-            // result.data.forEach(it => {
-            //   let date = new Date(it.time);
-            //   let year = date.getFullYear();
-            //   console.log(year);
-            //
-            // });
-            // var aestTime = new Date().toLocaleString("en-US", {timeZone: "Europe/Paris"});
-            // console.log('Europe time: '+ (new Date(aestTime)).toISOString())
+            result = result.data;
+            // console.log(result)
+            this.rows = [];
+            result.forEach(element => {
+              // console.log(element);
+              let status = "";
+              if (element.status)
+                status = "Active";
+              else
+                status = "Inactive";
+
+              let row = [element.id, status, element.time.replace('T', ' ')];
+              this.rows.push(row);
+            })
+
           })
           .catch(error => console.log('error', error));
-    }
+    },
   },
   data() {
     return {
-      donutData: [
-        {label: '2019', value: 14},
-        {label: '2020', value: 34},
-        {label: '2021', value: 10},
-        {label: '2022', value: 100},
-        {label: '2023', value: 780},
-        {label: '2024', value: 960},
-        {label: '2025', value: 1050},
-        {label: '2026', value: 140},
-        {label: '2027', value: 90},
-        {label: '2028', value: 50},
-        {label: '2029', value: 10}
-      ]
+      cols: ['id', 'status', 'time'],
+      rows: [],
+      // OPTIONAL:
+      // Boolean to automatically set table width
+      autoWidth: true,
+      // Localization dictionary object
+      language: {},
+      // Boolean or pagination settings object
+      pagination: true,
+      // Boolean or search settings object
+      search: false,
+      // Boolean or sort settings object
+      sort: true,
+      // String with name of theme or 'none' to disable
+      theme: 'none',
+      // String with css width value
+      width: '100%',
     }
   },
   components: {
-    DonutChart
+    Grid
   }
 }
 </script>

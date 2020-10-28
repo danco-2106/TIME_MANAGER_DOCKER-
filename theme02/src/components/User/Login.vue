@@ -5,9 +5,13 @@
     <label for="loginInputEmail" class="sr-only">Email address</label>
     <input v-model="loginInputEmail" type="email" id="loginInputEmail" class="form-control"
            placeholder="Email address" required autofocus>
-    <label for="loginInputUsername" class="sr-only">Password</label>
+    <label for="loginInputUsername" class="sr-only">Username</label>
     <input v-model="loginInputUsername" type="text" id="loginInputUsername" class="form-control"
            placeholder="Username" required>
+    <input v-model="loginInputPassword" type="password" id="loginInputPassword" class="form-control"
+           placeholder="Password" required>
+
+    <br>
     <button v-on:click="getUser" class="btn btn-lg btn-primary btn-block" type="button">Sign in</button>
     <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
   </form>
@@ -19,7 +23,9 @@ export default {
   data() {
     return {
       loginInputUsername: null,
-      loginInputEmail: null
+      loginInputEmail: null,
+      loginInputPassword: null,
+      loginInputRole: null
     }
   },
   methods: {

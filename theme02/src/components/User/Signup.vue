@@ -19,6 +19,7 @@
     <label for="signupInputPassword" class="sr-only">Password</label>
     <input v-model="signupInputPassword" type="password" id="signupInputPassword" class="form-control"
            placeholder="Password" required>
+<!--    {{ selectedRole }}-->
     <div class="dropdown">
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownRoleBtn" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
@@ -34,7 +35,7 @@
             Manager</label>
         </div>
         <div class="radio">
-          <label><input type="radio" id="genRole" name="radioRoles" value="General Manager">
+          <label><input v-model="selectedRole" type="radio" id="genRole" name="radioRoles" value="General Manager">
             General Manager</label>
         </div>
       </div>
@@ -86,10 +87,10 @@ export default {
     },
     createUser() {
       //debug
-      // console.log(this.signupInputEmail);
-      // console.log(this.signupInputUsername);
-      // console.log(this.signupInputPassword);
-      // console.log(this.selectedRole);
+      console.log(this.signupInputEmail);
+      console.log(this.signupInputUsername);
+      console.log(this.signupInputPassword);
+      console.log(this.selectedRole);
       console.log(this.checkForm());
 
       if (this.checkForm()) {

@@ -36,4 +36,12 @@ defmodule AppTestWeb.ClocksController do
     render(conn, "index.json", clocks: clockss)
   end
 
+  def delete(conn, %{"id" => id}) do
+    clockss = Data.get_clocks!(id)
+
+    with {:ok, %Clocks{}} <- Data.delete_clocks(clockss) do
+      send_resp(conn, :no_content, "")
+    end
+  end
+
 end

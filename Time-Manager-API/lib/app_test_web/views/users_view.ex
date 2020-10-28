@@ -16,6 +16,9 @@ defmodule AppTestWeb.UsersView do
     IO.puts "######################################################################"
     %{id: users.id,
       username: users.username,
-      email: users.email}
+      email: users.email,
+      role: users.role,
+      #password: users.password
+    }
   end
 end

@@ -1,13 +1,34 @@
 <template>
   <form class="form-signin">
     <img class="mb-4" src="../../assets/logo.png" alt="" width="250" height="250">
-    <h1 class="h3 mb-3 font-weight-normal">Sign up</h1>
+    <h1 class="h3 mb-3 font-weight-normal">Please fill in your information</h1>
     <label for="signupInputEmail" class="sr-only">Email address</label>
     <input v-model="signupInputEmail" type="email" id="signupInputEmail" class="form-control"
            placeholder="Email address" required autofocus>
     <label for="signupInputUsername" class="sr-only">Password</label>
     <input v-model="signupInputUsername" type="text" id="signupInputUsername" class="form-control"
            placeholder="Username" required>
+    <input v-model="signupInputPassword" type="password" id="signupInputPassword" class="form-control"
+           placeholder="Password" required>
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownRoleBtn" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+        Please select a role
+      </button>
+      <div class="dropdown-menu text-left ml-auto" aria-labelledby="dropdownMenuButton">
+        <div class="radio">
+          <label><input v-model="selectedRole" type="radio" id="empRole" name="radioRoles" value="Employee"> Employee</label>
+        </div>
+        <div class="radio">
+          <label><input v-model="selectedRole" type="radio" id="manRole" name="radioRoles" value="Manager"> Manager</label>
+        </div>
+        <div class="radio">
+          <label><input v-model="selectedRole" type="radio" id="genRole" name="radioRoles" value="General Manager"> General Manager</label>
+        </div>
+      </div>
+    </div>
+<!--    {{ selectedRadio }}-->
+    <br>
     <button v-on:click="createUser" class="btn btn-lg btn-primary btn-block" type="button">Sign up</button>
     <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
   </form>
@@ -19,7 +40,9 @@ export default {
   data() {
     return {
       signupInputEmail: null,
-      signupInputUsername: null
+      signupInputUsername: null,
+      signupInputPassword: null,
+      selectedRole: null
     }
   },
   methods: {
@@ -31,6 +54,8 @@ export default {
       //debug
       console.log(this.signupInputEmail)
       console.log(this.signupInputUsername)
+      console.log(this.signupInputPassword)
+      console.log(this.selectedRole)
 
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
@@ -39,7 +64,9 @@ export default {
         "users":
             {
               "username": this.signupInputUsername,
-              "email": this.signupInputEmail
+              "email": this.signupInputEmail,
+              "password" : this.signupInputPassword,
+              "role": this.selectedRole
             }
       });
 
@@ -51,7 +78,7 @@ export default {
       };
 
       fetch("http://localhost:4000/api/users", requestOptions)
-          .then(function(response) {
+          .then(function (response) {
             if (!response.ok) {
               throw Error(response.statusText);
             }

@@ -7,11 +7,11 @@
         <div class="col-sm">
 
           <!--          FOR DEBUGGING-->
-          <!--              <p>Max date: {{ maxDate == null ? "No data" : maxDate }}</p>-->
-          <!--              <p>Min date: {{ minDate == null ? "No data" : minDate }}</p>-->
-          <!--          <button v-on:click="getWorkingtimes" type="button">TEST</button>-->
-<!--                    {{ this.donutData }}-->
-<!--                    {{ this.donutKey }}-->
+<!--          <p>Max date: {{ maxDate == null ? "No data" : maxDate }}</p>-->
+<!--          <p>Min date: {{ minDate == null ? "No data" : minDate }}</p>-->
+<!--          <button v-on:click="getWorkingtimes" type="button">TEST</button>-->
+<!--          {{ this.donutData }}-->
+<!--          {{ this.donutKey }}-->
 <!--          <button v-on:click="forceAllRerender" type="button">Refresh all</button>-->
           <donut-chart
               id="donut"
@@ -182,10 +182,10 @@ export default {
 
       ],
       barData: [
-        {year: '2020', and: 10, ios:5, win:2},
-        {year: '2021', and: 10, ios:15, win:3},
-        {year: '2022', and: 20, ios:25, win:2},
-        {year: '2023', and: 30, ios:20, win:1},
+        {year: '2020', and: 10, ios: 5, win: 2},
+        {year: '2021', and: 10, ios: 15, win: 3},
+        {year: '2022', and: 20, ios: 25, win: 2},
+        {year: '2023', and: 30, ios: 20, win: 1},
       ],
       totalWT: 0,
       totalTime: 0,

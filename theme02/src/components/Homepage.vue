@@ -13,7 +13,7 @@
 export default {
   name: "Homepage",
   mounted() {
-    console.log(this.user)
+    // console.log(this.user)
     this.showUserName = this.user.username !== "Log in";
   },
   props: {

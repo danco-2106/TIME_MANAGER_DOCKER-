@@ -18,6 +18,7 @@ import Workingtimes from "@/components/Workingtimes/Workingtimes";
 import Workingtime from "@/components/Workingtime/Workingtime";
 import Clocking from "@/components/Clocking/Clocking";
 import NotFound from "@/components/NotFound";
+import Dashboard from "@/components/Dashboard";
 
 Vue.config.productionTip = false
 Vue.component('b-table', BTable)
@@ -30,6 +31,7 @@ const routes = [
     {path: '/workingtimes', component: Workingtimes},
     {path: '/workingtime', component: Workingtime},
     {path: '/clocking', component: Clocking},
+    {path: '/dashboard', component: Dashboard},
     {path: '*', component: NotFound}
 ]
 

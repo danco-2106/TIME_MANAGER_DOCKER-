@@ -11,9 +11,9 @@
     <label for="loginInputEmail" class="sr-only">Email address</label>
     <input v-model="loginInputEmail" type="email" id="loginInputEmail" class="form-control"
            placeholder="Email address" required autofocus>
-<!--    <label for="loginInputUsername" class="sr-only">Username</label>-->
-<!--    <input v-model="loginInputUsername" type="text" id="loginInputUsername" class="form-control"-->
-<!--           placeholder="Username" required>-->
+    <!--    <label for="loginInputUsername" class="sr-only">Username</label>-->
+    <!--    <input v-model="loginInputUsername" type="text" id="loginInputUsername" class="form-control"-->
+    <!--           placeholder="Username" required>-->
     <label for="loginInputPassword" class="sr-only">Password</label>
     <input v-model="loginInputPassword" type="password" id="loginInputPassword" class="form-control"
            placeholder="Password" required>
@@ -69,12 +69,22 @@ export default {
         console.log(this.loginInputEmail)
         console.log(this.loginInputPassword)
 
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+          "email": this.loginInputEmail,
+          "password": this.loginInputPassword,
+        });
+
         var requestOptions = {
-          method: 'GET',
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
           redirect: 'follow'
         };
 
-        fetch('http://localhost:4000/api/users?email=' + this.loginInputEmail + '&password=' + this.loginInputPassword, requestOptions)
+        fetch('http://localhost:4000/api/users/sign_in', requestOptions)
             .then(function (response) {
               if (!response.ok) {
                 throw Error(response.statusText);

@@ -6,9 +6,9 @@ defmodule AppTestWeb.UsersView do
     %{data: render_many(users, UsersView, "users.json")}
   end
 
-  def render("show.json", %{users: users}) do
-    %{data: render_one(users, UsersView, "users.json")}
-  end
+#  def render("show.json", %{users: users}) do
+#    %{data: render_one(users, UsersView, "users.json")}
+#  end
 
   def render("users.json", %{users: users}) do
     IO.puts "#################################users#####################################"

@@ -32,6 +32,13 @@ defmodule AppTest.Data.Users do
     |> put_pass_hash()
   end
 
+  def update_user_info_changeset(users, attrs) do
+    users
+    |> cast(attrs, [:username, :email])
+    |> validate_required([:username, :email])
+    |> unique_constraint(:email)
+  end
+
   defp put_pass_hash(
          %Ecto.Changeset{
            valid?: true,

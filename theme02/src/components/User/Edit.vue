@@ -57,10 +57,10 @@ export default {
           })
           .then(response => response.text())
           .then(result => {
-            console.log(result)
+            // console.log(result)
             result = JSON.parse(result);
             console.log(result)
-            this.$emit('successful-login', result.data);
+            this.$emit('successful-login', result);
           })
           .catch(error => console.log('error', error));
     },

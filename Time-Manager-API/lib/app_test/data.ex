@@ -102,7 +102,7 @@ defmodule AppTest.Data do
   """
   def update_users(%Users{} = users, attrs) do
     users
-    |> Users.changeset(attrs)
+    |> Users.update_user_info_changeset(attrs)
     |> Repo.update()
   end
 

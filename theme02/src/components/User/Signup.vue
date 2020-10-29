@@ -114,7 +114,7 @@ export default {
           redirect: 'follow'
         };
 
-        fetch("http://localhost:4000/api/users", requestOptions)
+        fetch("http://localhost:4000/api/users/sign_up", requestOptions)
             .then(function (response) {
               if (!response.ok) {
                 throw Error(response.statusText);
@@ -126,7 +126,7 @@ export default {
               // console.log(result)
               result = JSON.parse(result);
               console.log(result)
-              this.updateCurrentUser(result.data);
+              this.updateCurrentUser(result);
               this.$router.push("/");
             })
             .catch(error => console.log('error', error));

@@ -28,16 +28,21 @@ defmodule AppTestWeb.Router do
   # Other scopes may use custom stacks.
    scope "/api", AppTestWeb do
      pipe_through :api
-     get "/users", UsersController, :sign_in
+
+     #USERS
+     post "/users/sign_up", UsersController, :sign_up
+     post "/users/sign_in", UsersController, :sign_in
      options "/users", UsersController, :options
      resources "/users", UsersController, except: [:new, :edit]
 
+     #WORKINGTIMES
      post("/workingtimes/:usersId", WorkingtimesController, :create)
      get("/workingtimes/:usersId/:id", WorkingtimesController, :show)
      get("/workingtimes/:usersId", WorkingtimesController, :index)
      put("/workingtimes/:id", WorkingtimesController, :update)
      delete("/workingtimes/:id", WorkingtimesController, :delete)
 
+     #CLOCKS
      post("/clocks/:usersId", ClocksController, :create)
      get("/clocks/:usersId", ClocksController, :show)
      delete("/clocks/:id", ClocksController, :delete)

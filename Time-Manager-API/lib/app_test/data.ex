@@ -61,7 +61,8 @@ defmodule AppTest.Data do
   """
   def create_users(attrs \\ %{}) do
     %Users{}
-    |> Users.changeset(attrs)
+#    |> Users.changeset(attrs)
+    |> Users.registration_changeset(attrs)
     |> Repo.insert()
   end
   @doc """

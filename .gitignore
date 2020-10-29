@@ -36,3 +36,5 @@ npm-debug.log
 /config/
 /volumes/
 
+/theme02/package-lock.json
+/theme02/node_modules/

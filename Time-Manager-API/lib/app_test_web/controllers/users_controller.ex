@@ -6,10 +6,10 @@ defmodule AppTestWeb.UsersController do
 
   action_fallback AppTestWeb.FallbackController
 
-#  def index(conn, _params) do
-#    users = Data.list_users()
-#    render(conn, "index.json", users: users)
-#  end
+  #  def index(conn, _params) do
+  #    users = Data.list_users()
+  #    render(conn, "index.json", users: users)
+  #  end
 
 
   def index(conn, params) do
@@ -26,10 +26,26 @@ defmodule AppTestWeb.UsersController do
     end
   end
 
-#  def show(conn, %{"email" => email, "username" => username}) do
-#    users = Data.get_users_by_username!(email, username)
-#    render(conn, "show.json", users: users)
-#  end
+  def sign_in(conn, %{"email" => email, "password" => password}) do
+    case Data.authenticate_user(email, password) do
+      {:ok, users} ->
+        conn
+        |> put_status(:ok)
+        |> put_view(AppTestWeb.UsersView)
+        |> render("sign_in.json", users: users)
+
+      {:error, message} ->
+        conn
+        |> put_status(:unauthorized)
+        |> put_view(AppTestWeb.ErrorView)
+        |> render("401.json", message: message)
+    end
+  end
+
+  #  def show(conn, %{"email" => email, "username" => username}) do
+  #    users = Data.get_users_by_username!(email, username)
+  #    render(conn, "show.json", users: users)
+  #  end
 
   def show(conn, %{"id" => id}) do
     users = Data.get_users!(id)

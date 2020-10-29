@@ -37,6 +37,29 @@ defmodule AppTest.Data do
   """
   def get_users!(id), do: Repo.get!(Users, id)
 
+  def authenticate_user(email, password) do
+    query = from(u in Users, where: u.email == ^email)
+    query
+    |> Repo.one()
+    |> verify_password(password)
+  end
+
+  defp verify_password(nil, _) do
+    # Perform a dummy check to make user enumeration more difficult
+    Bcrypt.no_user_verify()
+    {:error, "Wrong email or password"}
+  end
+
+  defp verify_password(users, password) do
+    IO.puts "###############################################################"
+    IO.inspect( users)
+    if Bcrypt.verify_pass(password, users.password_hash) do
+      {:ok, users}
+    else
+      {:error, "Wrong email or password"}
+    end
+  end
+
   def get_users_by_username!(params) do
 #    IO.puts "****************************************************\n"
 #    IO.inspect(params)

@@ -28,6 +28,7 @@ defmodule AppTestWeb.Router do
   # Other scopes may use custom stacks.
    scope "/api", AppTestWeb do
      pipe_through :api
+     get "/users", UsersController, :sign_in
      options "/users", UsersController, :options
      resources "/users", UsersController, except: [:new, :edit]
 

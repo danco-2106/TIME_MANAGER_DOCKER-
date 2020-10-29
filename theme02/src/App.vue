@@ -56,7 +56,9 @@ export default {
       };
       this.userLoggedIn = false;
       this.userLoggedOut = true;
-      this.$router.push("/");
+      this.$router.push("/").catch(()=>{
+        //TODO handle error of trying to navigate to a page you are already on....
+      });
     },
   }
   ,

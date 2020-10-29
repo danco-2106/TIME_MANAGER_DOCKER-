@@ -86,9 +86,7 @@ export default {
               // console.log(result)
               result = JSON.parse(result);
               console.log(result)
-              // result looks like this:
-              //{"data": {"email": "123@man", "id": 1, "username": "test"}}
-              this.updateCurrentUser(result.data);
+              this.updateCurrentUser(result);
               this.$router.push("/");
             })
             .catch(error => {

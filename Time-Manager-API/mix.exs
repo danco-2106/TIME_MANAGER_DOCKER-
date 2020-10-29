@@ -45,7 +45,8 @@ defmodule AppTest.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:cors_plug, "~> 2.0"}
+      {:cors_plug, "~> 2.0"},
+      {:bcrypt_elixir, "~> 2.2"}
     ]
   end
 

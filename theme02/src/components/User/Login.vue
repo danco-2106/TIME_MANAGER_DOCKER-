@@ -1,5 +1,5 @@
 <template>
-  <form class="form-signin" @submit.prevent="getUser">
+  <form class="form-signin" @submit.prevent="signInUser">
     <img class="mb-4" src="../../assets/logo.png" alt="" width="250" height="250">
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
     <p v-if="errors.length" class="alert-danger">
@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import VueJwtDecode from 'vue-jwt-decode'
+
 export default {
   name: "Login",
   data() {
@@ -32,7 +34,8 @@ export default {
       loginInputEmail: null,
       loginInputPassword: null,
       loginInputRole: null,
-      errors: []
+      errors: [],
+      jwtToken: null
     }
   },
   methods: {
@@ -59,7 +62,37 @@ export default {
       }
       return status;
     },
-    getUser() {
+    getUser(userId) {
+      //on recupere les info de lutisateur qui ne sont pas contenu dans le jwt...
+      //si ca fonctionne on redirige ensuite sur la homepage
+      var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+      };
+
+      fetch("http://localhost:4000/api/users/" + userId, requestOptions)
+          .then(function (response) {
+            if (!response.ok) {
+              throw Error(response.statusText);
+            }
+            return response;
+          })
+          .then(response => response.text())
+          .then(result => {
+            // console.log(result)
+            result = JSON.parse(result);
+            // console.log("Result IS:")
+            // console.log(result)
+
+            this.updateCurrentJWT(this.jwtToken);
+            this.updateCurrentUser(result);
+            this.$router.push("/");
+          })
+          .catch(error => {
+            console.log('error', error);
+          });
+    },
+    signInUser() {
       //debug
       console.log(this.checkForm())
 
@@ -95,9 +128,14 @@ export default {
             .then(result => {
               // console.log(result)
               result = JSON.parse(result);
+              console.log("Result IS:")
               console.log(result)
-              this.updateCurrentUser(result);
-              this.$router.push("/");
+
+              this.jwtToken = VueJwtDecode.decode(result.token)
+              console.log("jwtToken IS:")
+              console.log(this.jwtToken)
+
+              this.getUser(this.jwtToken.id)
             })
             .catch(error => {
               console.log('error', error);
@@ -109,6 +147,9 @@ export default {
     },
     updateCurrentUser: function (loggedUser) {
       this.$emit('successful-login', loggedUser);
+    },
+    updateCurrentJWT: function (jwt) {
+      this.$emit('update-jwt', jwt);
     }
   }
 }

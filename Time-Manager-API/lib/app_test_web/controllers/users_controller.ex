@@ -38,27 +38,23 @@ defmodule AppTestWeb.UsersController do
   def sign_in(conn, %{"email" => email, "password" => password}) do
     case Data.authenticate_user(email, password) do
       {:ok, users} ->
-      #voir https://hexdocs.pm/joken/introduction.html
-#        {:ok, token_with_default_claims} = AppTest.Token.generate_and_sign()
-
+        #voir https://hexdocs.pm/joken/introduction.html
+        #        {:ok, token_with_default_claims} = AppTest.Token.generate_and_sign()
         extra_claims = %{"id" => users.id, "role" => users.role, "c-xsrf-token" => Plug.CSRFProtection.get_csrf_token}
         token_with_default_plus_custom_claims = AppTest.Token.generate_and_sign!(extra_claims)
-
         IO.puts "######################HERE###############################"
         IO.inspect (token_with_default_plus_custom_claims)
         IO.puts "######################HERE###############################"
-
-        #        {:ok, claims} = AppTest.Token.verify_and_validate(token)
-#
-#        # Example with a different key than the default
-#        claims = AppTest.Token.verify_and_validate!(token, another_key)
-
+        #       {:ok, claims} = AppTest.Token.verify_and_validate(token)
+        #
+        #        # Example with a different key than the default
+        #        claims = AppTest.Token.verify_and_validate!(token, another_key)
         conn
         |> put_status(:ok)
         |> put_view(AppTestWeb.UsersView)
-#        |> render("sign_in.json", users: users, token: Plug.CSRFProtection.get_csrf_token)
+          #        |> render("sign_in.json", users: users, token: Plug.CSRFProtection.get_csrf_token)
         |> render("sign_in.json", token: token_with_default_plus_custom_claims)
-#        |> render("sign_in.json", users: users, token: get_csrf_token())
+      #        |> render("sign_in.json", users: users, token: get_csrf_token())
 
       {:error, message} ->
         conn

@@ -53,6 +53,10 @@ defmodule AppTestWeb.Router do
      get("/clocks/:usersId", ClocksController, :show)
      delete("/clocks/:id", ClocksController, :delete)
 
+    #TEAMS
+     post("/teams", TeamsController, :create)
+     get("/teams", TeamsController, :index)
+     post("/teamsUsers", TeamsController, :addUsersInTeams)
 
     #post "/workingtimes/:usersid", WorkingtimesController, :create
    end

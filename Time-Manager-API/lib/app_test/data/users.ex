@@ -8,8 +8,8 @@ defmodule AppTest.Data.Users do
     field :role, :string
     field :password, :string, virtual: true
     field :password_hash, :string
-    has_many :workingtimes, AppTest.Data.Workingtimes
-    has_many :clocks, AppTest.Data.Clocks
+    has_many :workingtimes, AppTest.Data.Workingtimes, on_delete: :delete_all
+    has_many :clocks, AppTest.Data.Clocks, on_delete: :delete_all
 
     timestamps()
   end

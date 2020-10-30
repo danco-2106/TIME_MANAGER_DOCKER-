@@ -349,4 +349,109 @@ defmodule AppTest.Data do
   def change_workingtimes(%Workingtimes{} = workingtimes, attrs \\ %{}) do
     Workingtimes.changeset(workingtimes, attrs)
   end
+
+  alias AppTest.Data.Teams
+  alias AppTest.Data.UsersTeams
+  alias AppTest.Data.Users
+
+  @doc """
+  Returns the list of teams.
+
+  ## Examples
+
+      iex> list_teams()
+      [%Team{}, ...]
+
+  """
+  def list_teams do
+    Repo.all(Teams)
+  end
+
+  @doc """
+  Gets a single team.
+
+  Raises `Ecto.NoResultsError` if the Team does not exist.
+
+  ## Examples
+
+      iex> get_team!(123)
+      %Team{}
+
+      iex> get_team!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_teams!(id), do: Repo.get!(Teams, id)
+
+  @doc """
+  Creates a team.
+
+  ## Examples
+
+      iex> create_team(%{field: value})
+      {:ok, %Team{}}
+
+      iex> create_team(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_teams(attrs \\ %{}) do
+    %Teams{}
+    |> Teams.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def add_users_teams(attrs \\ %{}) do
+    IO.inspect(attrs)
+    %UsersTeams{}
+    |> UsersTeams.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a team.
+
+  ## Examples
+
+      iex> update_team(team, %{field: new_value})
+      {:ok, %Team{}}
+
+      iex> update_team(team, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_teams(%Teams{} = teams, attrs) do
+    teams
+    |> Teams.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a team.
+
+  ## Examples
+
+      iex> delete_team(team)
+      {:ok, %Team{}}
+
+      iex> delete_team(team)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_teams(%Teams{} = teams) do
+    Repo.delete(teams)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking team changes.
+
+  ## Examples
+
+      iex> change_team(team)
+      %Ecto.Changeset{data: %Team{}}
+
+  """
+  def change_teams(%Teams{} = teams, attrs \\ %{}) do
+    Teams.changeset(teams, attrs)
+  end
 end

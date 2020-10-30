@@ -18,6 +18,7 @@
     "moment": "^2.29.1",
     "vue": "^2.6.11",
     "vue-generate-component": "^3.0.1",
+    "vue-jwt-decode": "^0.1.0",
     "vue-morris": "^1.1.0",
     "vue-router": "^3.4.7"
   },

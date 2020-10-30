@@ -36,7 +36,7 @@
         </ul>
       </div>
     </nav>
-    <router-view @successful-login="userLogin" @successful-logout="userLogout" :user="user"></router-view>
+    <router-view @successful-login="userLogin" @successful-logout="userLogout" @update-jwt="updateToken" :user="user"></router-view>
   </div>
 </template>
 
@@ -61,6 +61,11 @@ export default {
         //TODO handle error of trying to navigate to a page you are already on....
       });
     },
+    updateToken (jwt) {
+      this.jwtToken = jwt;
+      // console.log(this.jwtToken);
+      // console.log("INSIDE UPDATETOKEN");
+    }
   }
   ,
   data() {
@@ -71,7 +76,8 @@ export default {
         id: -1
       },
       userLoggedIn: false,
-      userLoggedOut: true
+      userLoggedOut: true,
+      jwtToken: null
     }
   }
 }

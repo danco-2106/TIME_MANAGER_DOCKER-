@@ -6,23 +6,29 @@ defmodule AppTestWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
-#    TODO commented this to avoid CSRF Error
-#    plug :protect_from_forgery
+    plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
 
   pipeline :api do
     plug CORSPlug, origin: "*"
+    ###########################################
+#    plug :fetch_session
+#    plug :put_csrf_token_in_session
+#    plug Plug.CSRFProtection
+#    plug :protect_from_forgery
+    ###########################################
     plug :accepts, ["json"]
   end
 
+#  defp put_csrf_token_in_session(conn, _) do
+#    Plug.CSRFProtection.get_csrf_token
+#    conn |> put_session("_csrf_token", Plug.CSRFProtection.get_csrf_token)
+#  end
+
   scope "/", AppTestWeb do
     pipe_through :browser
-
     get "/", PageController, :index
-    #    TODO figure this out:
-    #Add the resource to your :api scope in lib/app_test_web/router.ex:
-
   end
 
   # Other scopes may use custom stacks.

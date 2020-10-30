@@ -19,6 +19,7 @@ defmodule AppTest.Data.Users do
     users
     |> cast(attrs, [:username, :email, :password, :role])
     |> validate_required([:username, :email, :password, :role])
+    |> validate_format(:email, ~r/^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/)
     |> unique_constraint(:email)
   end
 
@@ -27,6 +28,7 @@ defmodule AppTest.Data.Users do
     |> changeset(attrs)
     |> cast(attrs, [:username, :email, :password, :role])
     |> validate_required([:username, :email, :password, :role])
+    |> validate_format(:email, ~r/^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/)
     |> unique_constraint(:email)
     |> validate_length(:password, min: 8)
     |> put_pass_hash()
@@ -36,6 +38,7 @@ defmodule AppTest.Data.Users do
     users
     |> cast(attrs, [:username, :email])
     |> validate_required([:username, :email])
+    |> validate_format(:email, ~r/^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/)
     |> unique_constraint(:email)
   end
 

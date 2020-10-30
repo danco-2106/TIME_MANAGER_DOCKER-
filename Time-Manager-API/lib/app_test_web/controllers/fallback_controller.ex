@@ -14,8 +14,6 @@ defmodule AppTestWeb.FallbackController do
     |> render(:"404")
   end
 
-#  TODO not sure this is valid
-####################################################################################
   # This clause will handle invalid resource data.
   def call(conn, {:error, %Ecto.Changeset{}}) do
     conn
@@ -23,6 +21,5 @@ defmodule AppTestWeb.FallbackController do
     |> put_view(AppTestWeb.ErrorView)
     |> render(:"422")
   end
-  ####################################################################################
 
 end

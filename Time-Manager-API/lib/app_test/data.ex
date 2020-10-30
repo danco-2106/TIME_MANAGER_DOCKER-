@@ -51,8 +51,8 @@ defmodule AppTest.Data do
   end
 
   defp verify_password(users, password) do
-    IO.puts "###############################################################"
-    IO.inspect( users)
+#    IO.puts "###############################################################"
+#    IO.inspect( users)
     if Bcrypt.verify_pass(password, users.password_hash) do
       {:ok, users}
     else

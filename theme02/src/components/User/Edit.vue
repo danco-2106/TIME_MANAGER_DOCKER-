@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form class="form-signin">
+    <form class="form-signin" @submit.prevent="saveUserInfo">
       <h1>{{ user.email }}</h1>
       <hr>
       <h3>Edit your personal information</h3>
@@ -10,7 +10,7 @@
       <p>Username:
         <input v-model="editInputUsername" type="text" class="form-control" :placeholder="user.username">
       </p>
-      <button v-on:click="saveUserInfo" class="btn btn-lg btn-primary btn-block" type="button">Save</button>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
       <button v-on:click="deleteUser" class="btn btn-lg btn-danger btn-block" type="button">Delete</button>
     </form>
   </div>
@@ -24,8 +24,8 @@ export default {
   },
   data() {
     return {
-      editInputUsername: null,
-      editInputEmail: null
+      editInputUsername: this.user.username,
+      editInputEmail: this.user.email
     }
   },
   methods: {

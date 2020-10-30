@@ -6,9 +6,9 @@ defmodule AppTestWeb.UsersView do
     %{data: render_many(users, UsersView, "users.json")}
   end
 
-#  def render("show.json", %{users: users}) do
-#    %{data: render_one(users, UsersView, "users.json")}
-#  end
+  #  def render("show.json", %{users: users}) do
+  #    %{data: render_one(users, UsersView, "users.json")}
+  #  end
 
   def render("users.json", %{users: users}) do
     IO.puts "#################################users#####################################"
@@ -23,13 +23,20 @@ defmodule AppTestWeb.UsersView do
     }
   end
 
-  def render("sign_in.json", %{users: users}) do
+  def render("sign_in.json", %{users: users, token: token}) do
     %{
       id: users.id,
       username: users.username,
       email: users.email,
       role: users.role,
+      token: token
       #password: users.password
+    }
+  end
+
+  def render("sign_in.json", %{token: token}) do
+    %{
+      token: token
     }
   end
 

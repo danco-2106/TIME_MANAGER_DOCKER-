@@ -46,7 +46,7 @@ export default {
   name: 'App',
   methods: {
     userLogin(loggedUser) {
-      console.log(loggedUser)
+      // console.log(loggedUser)
       this.user = loggedUser;
       this.userLoggedIn = true;
       this.userLoggedOut = false;

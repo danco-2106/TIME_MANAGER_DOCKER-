@@ -62,7 +62,7 @@ export default {
       });
     },
     updateToken (jwt) {
-      this.jwtToken = jwt;
+      this.jwt = jwt;
       // console.log(this.jwtToken);
       // console.log("INSIDE UPDATETOKEN");
     }
@@ -77,7 +77,7 @@ export default {
       },
       userLoggedIn: false,
       userLoggedOut: true,
-      jwtToken: null
+      jwt: null
     }
   }
 }

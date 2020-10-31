@@ -13,6 +13,7 @@ defmodule AppTestWeb.UsersController do
 
 
   def index(conn, params) do
+    IO.puts "\n\nINDEX\n\n"
     users = Data.get_users_by_username!(params)
     render(conn, "users.json", users: users)
   end
@@ -45,7 +46,7 @@ defmodule AppTestWeb.UsersController do
         IO.puts "######################HERE###############################"
         IO.inspect (token_with_default_plus_custom_claims)
         IO.puts "######################HERE###############################"
-        #       {:ok, claims} = AppTest.Token.verify_and_validate(token)
+        #               {:ok, claims} = AppTest.Token.verify_and_validate(token_with_default_plus_custom_claims)
         #
         #        # Example with a different key than the default
         #        claims = AppTest.Token.verify_and_validate!(token, another_key)
@@ -70,8 +71,34 @@ defmodule AppTestWeb.UsersController do
   #  end
 
   def show(conn, %{"id" => id}) do
-    users = Data.get_users!(id)
-    render(conn, "users.json", users: users)
+    #################################USEFUL FOR DEBUGGING DONT DELETE!#######################################
+    #    IO.puts "\n\nSHOW\n\n"
+    #
+        jwt = get_req_header(conn, "authorization")
+    #    #    IO.inspect(jwt)
+        jwt = to_string(jwt)
+    #    #    IO.inspect(jwt)
+        jwt = String.replace(jwt, "Bearer ", "")
+    #    IO.puts "\nI received the following token: #{jwt}\n"
+    #    #    IO.inspect(jwt)
+    #
+    #    IO.puts "\n\nSTATUS\n\n"
+    #
+    #    status = AppTest.Token.verify_and_validate(jwt)
+    #    #    {:ok, claims} = AppTest.Token.verify_and_validate(jwt)
+    #    IO.inspect(status)
+    #################################USEFUL FOR DEBUGGING DONT DELETE!#######################################
+    case AppTest.Token.verify_and_validate(jwt) do
+      {:ok, token} ->
+        users = Data.get_users!(id)
+        render(conn, "users.json", users: users)
+
+      {:error, message} ->
+        conn
+        |> put_status(:unauthorized)
+        |> put_view(AppTestWeb.ErrorView)
+        |> render("401.json", message: message)
+    end
   end
 
   def update(conn, %{"id" => id, "users" => users_params}) do

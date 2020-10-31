@@ -35,7 +35,7 @@ export default {
       loginInputPassword: null,
       loginInputRole: null,
       errors: [],
-      jwtToken: null
+      jwt: null
     }
   },
   methods: {
@@ -65,8 +65,13 @@ export default {
     getUser(userId) {
       //on recupere les info de lutisateur qui ne sont pas contenu dans le jwt...
       //si ca fonctionne on redirige ensuite sur la homepage
+
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", "Bearer " + this.jwt);
+
       var requestOptions = {
         method: 'GET',
+        headers: myHeaders,
         redirect: 'follow'
       };
 
@@ -84,7 +89,7 @@ export default {
             // console.log("Result IS:")
             // console.log(result)
 
-            this.updateCurrentJWT(this.jwtToken);
+            this.updateCurrentJWT(this.jwt);
             this.updateCurrentUser(result);
             this.$router.push("/");
           })
@@ -131,11 +136,11 @@ export default {
               console.log("Result IS:")
               console.log(result)
 
-              this.jwtToken = VueJwtDecode.decode(result.token)
-              console.log("jwtToken IS:")
-              console.log(this.jwtToken)
+              this.jwt = result.token;
+              console.log("jwt IS:")
+              console.log(this.jwt)
 
-              this.getUser(this.jwtToken.id)
+              this.getUser(VueJwtDecode.decode(result.token).id)
             })
             .catch(error => {
               console.log('error', error);

@@ -10,6 +10,11 @@ defmodule AppTestWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :auth do
+    plug CORSPlug, origin: "*"
+    plug :accepts, ["json"]
+  end
+
   pipeline :api do
     plug CORSPlug, origin: "*"
     ###########################################
@@ -31,7 +36,14 @@ defmodule AppTestWeb.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
+#  #AUTHENTIFICATION
+#  scope "/auth", AppTestWeb do
+#    #USERS
+#    post "/users/sign_up", UsersController, :sign_up
+#    post "/users/sign_in", UsersController, :sign_in
+#  end
+
+  #NEED TO BE AUTHENTICATED TO USE THESE ROUTES
    scope "/api", AppTestWeb do
      pipe_through :api
 

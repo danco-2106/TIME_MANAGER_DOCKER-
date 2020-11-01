@@ -77,6 +77,7 @@ defmodule AppTestWeb.UsersController do
         jwt = get_req_header(conn, "authorization")
     #    #    IO.inspect(jwt)
         jwt = to_string(jwt)
+        #test
     #    #    IO.inspect(jwt)
         jwt = String.replace(jwt, "Bearer ", "")
     #    IO.puts "\nI received the following token: #{jwt}\n"
